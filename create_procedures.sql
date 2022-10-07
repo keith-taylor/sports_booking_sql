@@ -46,5 +46,18 @@ in p_booked_time time, in p_member_id varchar(21))
 			v_payment_due - v_price where member_id = v_member_id; 
     end $$
  
- 
+ CREATE PROCEDURE view_bookings (in p_member_id varchar(21))
+	begin 
+		select * from member_bookings where member_id = p_member_id;
+	end $$
+    
+
+CREATE PROCEDURE search_for_room (in p_room_type varchar(255), in p_booked_date date, in p_booked_time time)
+begin
+	SELECT * FROM rooms WHERE id NOT IN 
+	(SELECT room_id FROM bookings WHERE booked_date = p_booked_date AND 
+	booked_time = p_booked_time AND payment_status != 'Cancelled') 
+	AND room_type = p_room_type; 
+end $$
+
 delimiter ;
