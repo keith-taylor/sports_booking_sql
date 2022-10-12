@@ -1,7 +1,5 @@
 create database sports_booking;
 
-use sports_booking;
-
 create table members (
 	member_id varchar(21) primary key,
     password varchar(255) not null,
